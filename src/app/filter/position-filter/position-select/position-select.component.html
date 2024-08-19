@@ -1,0 +1,4 @@
+<button class="custom-select" (click)="openDialog()" [disabled]="positions == null">
+    <span [class.active]="selectedPosition?.elementName">{{ label }} position</span>
+    <p>{{ selectedPosition?.elementName }}</p>
+</button>

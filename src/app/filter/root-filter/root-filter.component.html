@@ -1,0 +1,70 @@
+<form [formGroup]="form" class="filters-container">
+  <div class="flex">
+    <div class="filters-item">
+      <div class="machines-container">
+        <lt-machine-filter formControlName="selectedMachine"/>
+      </div>
+
+        <div class="checkbox-container">
+          <mat-slide-toggle formControlName="isLabelShown" title="show Functional Position of the element on hover">
+            Functional Position on hover
+          </mat-slide-toggle>
+        </div>
+
+        <div class="checkbox-container">
+          <mat-slide-toggle formControlName="isExpertShown" title="show Expert Name of the element on hover">Expert Name
+            on hover
+          </mat-slide-toggle>
+        </div>
+
+        @if (!isCollapsedControl.value && isElementsWithoutHeightPresent && !isElementsEmpty) {
+          <div class="checkbox-container">
+            <mat-slide-toggle formControlName="isDefaultHeightAdded"
+                              title="show default height for the elements without data">Default height for elements
+              without height
+            </mat-slide-toggle>
+          </div>
+        }
+
+      @if (!isElementsEmpty) {
+        <div
+          [class.disabled]="isCollapsedControl.value || !selectedMachineControl.value || (loadingStateChanged | async)"
+          class="checkbox-container">
+          <p>Depth level:</p>
+          <div>
+            @for (ctrl of depthLevelControls; track ctrl; let i = $index) {
+              @if (depthLevels && depthLevels[i]) {
+                <mat-checkbox [formControl]="ctrl">{{ depthLevels[i] }}</mat-checkbox>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      @if (!isElementsEmpty && !isCollapsedControl.value) {
+        <div class="checkbox-container"
+             [class.disabled]="!selectedMachineControl.value || (loadingStateChanged | async)">
+          <p>Names level:</p>
+          <div>
+            @for (ctrl of namesLevelControls; track ctrl; let i = $index) {
+              <mat-checkbox [formControl]="ctrl">{{ namesLevels[i] }}</mat-checkbox>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="filters-item">
+      <div class="classes-container" [class.disabled]="isElementsEmpty">
+        <lt-class-filter [class.disabled]="!selectedMachineControl.value || (loadingStateChanged | async)"
+                         [classes]="classes" formControlName="activeClasses"/>
+      </div>
+
+      <div [class.disabled]="!selectedMachineControl.value || (loadingStateChanged | async) || (isElementsEmpty && positionRangeControl.value[1] === -1) "
+           class="positions-container cell">
+        <lt-position-filter [selectedDate]="dateAsString | async" [selectedMachine]="selectedMachineControl.value"
+                            formControlName="positionRange"/>
+      </div>
+    </div>
+  </div>
+</form>

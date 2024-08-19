@@ -1,0 +1,26 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" class="dialog">
+  <div cdkDragHandle class="header">
+    <p>Pick a machine</p>
+    <mat-form-field appearance="outline" class="search-container">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search" type="text" [formControl]="searchControl"/>
+    </mat-form-field>
+  </div>
+  <div class="machine-item-container">
+    @for (machine of filteredMachines(); track machine) {
+      <div class="machine-item" [class.disabled]="machine == data.selectedMachine" (click)="selectMachine(machine)">
+        <span>{{ machine.machineCode }}</span>
+        <lt-milestone-day-range
+          [fromDay]="machine.validFromDay | date : 'dd-MM-y'"
+          [toDay]="machine.expiryDay >= endlessDate ? 'Endless' : (machine.expiryDay | date : 'd-MM-y')"
+        />
+      </div>
+    }
+  </div>
+  <div class="footer">
+    <button mat-button (click)="closeDialog()">
+      <mat-icon inline>close</mat-icon>
+      Close
+    </button>
+  </div>
+</div>

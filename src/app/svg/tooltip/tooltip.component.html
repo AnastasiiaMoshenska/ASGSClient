@@ -1,0 +1,209 @@
+<svg:g xmlns:svg="http://www.w3.org/2000/svg">
+  @if (isLabelShown || isExpertShown) {
+    <line
+      class="title-line"
+      [attr.x1]="adjMeasurements.upstreamX + TOOLTIP.titlePadding"
+      [attr.x2]="adjMeasurements.upstreamX + TOOLTIP.titlePadding"
+      [attr.y1]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner - TOOLTIP.textAdjustment"
+      [attr.y2]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner - TOOLTIP.textAdjustment - TOOLTIP.textPadding"
+      [attr.stroke]="element.bgColor !== undefined ? element.bgColor : 'lightblue'"
+    ></line>
+  }
+
+  <defs>
+    <marker id="arrowhead" markerWidth="22.5" markerHeight="11.25" refX="0" refY="3.75" orient="auto">
+      <polygon points="11.25 0, 0 3.9375, 11.25 7.875"></polygon>
+    </marker>
+  </defs>
+
+  <text class="title-text" [attr.x]="adjMeasurements.upstreamX + TOOLTIP.verticalTextAdjustment">
+
+    @if (isLabelShown) {
+      <tspan [attr.y]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner - TOOLTIP.textAdjustment * 2">
+        {{ element.elementName }}
+      </tspan>
+    }
+
+    @if (isLabelShown && isExpertShown) {
+      <tspan [attr.y]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner - TOOLTIP.textAdjustment * 2">/
+      </tspan>
+    }
+
+    @if (isExpertShown && element.expertName) {
+      <tspan [attr.y]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner - TOOLTIP.textAdjustment * 2">
+        {{ element.expertName }}
+      </tspan>
+    }
+
+    @if (isExpertShown && !element.expertName) {
+      <tspan class="line-through" [attr.y]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner - TOOLTIP.textAdjustment * 2">expert name</tspan>
+    }
+  </text>
+
+  @if (isLabelShown || isExpertShown) {
+    <line
+      class="arrow-width-line"
+      [attr.x1]="adjMeasurements.upstreamX"
+      [attr.x2]="adjMeasurements.upstreamX"
+      y1="0"
+      [attr.y2]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner - TOOLTIP.textAdjustment"
+    ></line>
+  }
+
+  <!--rectangle-->
+
+  <a (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)">
+    <rect
+      class="element-rect"
+      [attr.x]="adjMeasurements.upstreamX"
+      [attr.y]="adjMeasurements.midstreamY - adjMeasurements.height / 2"
+      [attr.height]="adjMeasurements.height"
+      [attr.width]="adjMeasurements.width"
+      [attr.fill]="element.bgColor !== undefined ? element.bgColor : 'lightblue'"
+    ></rect>
+  </a>
+
+  <rect
+    class="element-bulletpoint"
+    [attr.x]="adjMeasurements.midstreamX - ELEMENT.bulletSize / 2"
+    [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner - ELEMENT.bulletSize / 2"
+    [attr.height]="ELEMENT.bulletSize"
+    [attr.width]="ELEMENT.bulletSize"
+    rx="50"
+  ></rect>
+
+  <!--width arrow-->
+  @if (element.width !== null) {
+
+    <g>
+      <line
+        class="arrow-width-line"
+        [attr.x1]="adjMeasurements.upstreamX"
+        [attr.x2]="adjMeasurements.upstreamX"
+        y1="0"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+      ></line>
+      <line
+        class="arrow-width-pointer"
+        [attr.x1]="adjMeasurements.upstreamX"
+        [attr.x2]="adjMeasurements.upstreamX - TOOLTIP.defaultLength"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+        marker-start="url(#arrowhead)"
+      ></line>
+      <text
+        class="arrow-width-text"
+        [attr.x]="adjMeasurements.downstreamX + TOOLTIP.verticalTextAdjustment"
+        [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter - TOOLTIP.textAdjustment"
+      >
+        {{ element.width }}
+      </text>
+      <line
+        class="arrow-width-line"
+        [attr.x1]="adjMeasurements.upstreamX + adjMeasurements.width"
+        [attr.x2]="adjMeasurements.upstreamX + adjMeasurements.width"
+        [attr.y1]="0"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+      ></line>
+      <line
+        class="arrow-width-pointer"
+        [attr.x1]="adjMeasurements.downstreamX"
+        [attr.x2]="adjMeasurements.downstreamX + TOOLTIP.defaultLength"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+        marker-start="url(#arrowhead)"
+      ></line>
+      <line
+        class="arrow-width-line dashed"
+        [attr.x1]="adjMeasurements.upstreamX"
+        [attr.x2]="adjMeasurements.upstreamX + adjMeasurements.width"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + VIEW_BOX.paddingOuter"
+      ></line>
+    </g>
+  }
+
+  <!--left x arrow-->
+  @if (element.upstreamX !== null) {
+    <g>
+      <line
+        class="arrow-width-pointer"
+        [attr.x1]="adjMeasurements.upstreamX"
+        [attr.x2]="adjMeasurements.upstreamX - TOOLTIP.textPadding"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2"
+        marker-start="url(#arrowhead)"
+      ></line>
+      <line
+        class="arrow-width-line"
+        [attr.x1]="adjMeasurements.upstreamX - TOOLTIP.textPadding"
+        [attr.x2]="adjMeasurements.upstreamX - TOOLTIP.textPadding * 2"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2"
+      ></line>
+      <text
+        class="arrow-width-text left"
+        [attr.x]="adjMeasurements.upstreamX - TOOLTIP.textPadding"
+        [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2 - TOOLTIP.textAdjustment"
+      >
+        {{ element.upstreamX }}
+      </text>
+    </g>
+  }
+
+  <!--right x arrow-->
+  @if (element.downstreamX !== null) {
+    <g>
+      <line
+        class="arrow-width-pointer"
+        [attr.x1]="adjMeasurements.downstreamX"
+        [attr.x2]="adjMeasurements.downstreamX + TOOLTIP.textPadding"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2"
+        marker-start="url(#arrowhead)"
+      ></line>
+      <line
+        class="arrow-width-line"
+        [attr.x1]="adjMeasurements.downstreamX + TOOLTIP.textPadding"
+        [attr.x2]="adjMeasurements.downstreamX + TOOLTIP.textPadding * 2"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2"
+      ></line>
+      <text
+        class="arrow-width-text"
+        [attr.x]="adjMeasurements.downstreamX + TOOLTIP.textPadding"
+        [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner / 2 - TOOLTIP.textAdjustment"
+      >
+        {{ element.downstreamX }}
+      </text>
+    </g>
+  }
+
+  <!--middle x coordinate arrow-->
+  @if (element.midstreamX !== null) {
+    <g>
+      <line
+        class="arrow-width-pointer"
+        [attr.x1]="adjMeasurements.midstreamX"
+        [attr.x2]="adjMeasurements.midstreamX - TOOLTIP.textPadding"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner * 2"
+        marker-start="url(#arrowhead)"
+      ></line>
+      <line
+        class="arrow-width-line"
+        [attr.x1]="adjMeasurements.midstreamX - TOOLTIP.textPadding"
+        [attr.x2]="adjMeasurements.midstreamX - TOOLTIP.textPadding * 2"
+        [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner * 2"
+        [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner * 2"
+      ></line>
+      <text
+        class="arrow-width-text left"
+        [attr.x]="adjMeasurements.midstreamX - TOOLTIP.textPadding"
+        [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner * 2 - TOOLTIP.textAdjustment"
+      >
+        {{ element.midstreamX }}
+      </text>
+    </g>
+  }
+</svg:g>

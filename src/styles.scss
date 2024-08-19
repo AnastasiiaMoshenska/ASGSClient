@@ -1,0 +1,246 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use '@angular/material/core/theming/_palette.scss' as mat-theming;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@include mat.core();
+
+$acw-primary: #205081;
+$acw-accent: #a274c9;
+$acw-success: #0a8754;
+$acw-alert: #f19833;
+$acw-warn: #c52c31;
+
+$neutral-color: #efefef;
+
+$acw-light-primary-text: mat-theming.$light-primary-text;
+$acw-dark-primary-text: mat-theming.$dark-primary-text;
+
+$primary-palette: (
+  50: #e4eaf0,
+  100: #bccbd9,
+  200: #90a8c0,
+  300: #6385a7,
+  400: #416a94,
+  500: $acw-primary,
+  600: #1c4979,
+  700: #18406e,
+  800: #133764,
+  900: #0b2751,
+  A100: #87b0ff,
+  A200: #548fff,
+  A400: #216eff,
+  A700: #085dff,
+  contrast: (
+    50: $acw-dark-primary-text,
+    100: $acw-dark-primary-text,
+    200: $acw-dark-primary-text,
+    300: $acw-light-primary-text,
+    400: $acw-light-primary-text,
+    500: $acw-light-primary-text,
+    600: $acw-light-primary-text,
+    700: $acw-light-primary-text,
+    800: $acw-light-primary-text,
+    900: $acw-light-primary-text,
+    A100: $acw-dark-primary-text,
+    A200: $acw-dark-primary-text,
+    A400: $acw-light-primary-text,
+    A700: $acw-light-primary-text
+  )
+);
+
+$accent-palette: (
+  50: #f4eef9,
+  100: #e3d5ef,
+  200: #d1bae4,
+  300: #be9ed9,
+  400: #b089d1,
+  500: #a274c9,
+  600: #9a6cc3,
+  700: #9061bc,
+  800: #8657b5,
+  900: #7544a9,
+  A100: #ffffff,
+  A200: #e4ccff,
+  A400: #c999ff,
+  A700: #bc80ff,
+  contrast: (
+    50: $acw-dark-primary-text,
+    100: $acw-dark-primary-text,
+    200: $acw-dark-primary-text,
+    300: $acw-dark-primary-text,
+    400: $acw-dark-primary-text,
+    500: $acw-dark-primary-text,
+    600: $acw-dark-primary-text,
+    700: $acw-light-primary-text,
+    800: $acw-light-primary-text,
+    900: $acw-light-primary-text,
+    A100: $acw-dark-primary-text,
+    A200: $acw-dark-primary-text,
+    A400: $acw-dark-primary-text,
+    A700: $acw-dark-primary-text
+  )
+);
+
+$warn-palette: (
+  50: #f8e6e6,
+  100: #eec0c1,
+  200: #e29698,
+  300: #d66b6f,
+  400: #ce4c50,
+  500: $acw-warn,
+  600: #bf272c,
+  700: #b82125,
+  800: #b01b1f,
+  900: #a31013,
+  A100: #ffd4d4,
+  A200: #ffa1a2,
+  A400: #ff6e70,
+  A700: #ff5456,
+  contrast: (
+    50: $acw-dark-primary-text,
+    100: $acw-dark-primary-text,
+    200: $acw-dark-primary-text,
+    300: $acw-dark-primary-text,
+    400: $acw-light-primary-text,
+    500: $acw-light-primary-text,
+    600: $acw-light-primary-text,
+    700: $acw-light-primary-text,
+    800: $acw-light-primary-text,
+    900: $acw-light-primary-text,
+    A100: $acw-dark-primary-text,
+    A200: $acw-dark-primary-text,
+    A400: $acw-dark-primary-text,
+    A700: $acw-dark-primary-text
+  )
+);
+
+
+$acw-theme: mat.define-light-theme(
+    (
+      color: (
+        primary: mat.define-palette($primary-palette, 500),
+        accent: mat.define-palette($accent-palette, 500),
+        warn: mat.define-palette($warn-palette, 500)
+      ),
+      density: minimum
+    )
+);
+
+@include mat.core-theme($acw-theme);
+@include mat.all-component-themes($acw-theme);
+
+@include mat.button-density(-1);
+@include mat.button-toggle-density(-3);
+
+acw-table {
+  thead tr {
+    &:nth-of-type(2) th {
+      border-top: none !important;
+      padding: 0 !important;
+    }
+
+    &:last-of-type th {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+    }
+  }
+
+  th,
+  mat-header-cell {
+    .header-text {
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 12px;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-left: none !important;
+    border-bottom: none !important;
+
+    &:first-of-type {
+      border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+    }
+  }
+
+  td,
+  mat-cell {
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-left: none !important;
+    border-top: none !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 12px !important;
+
+    &:first-of-type {
+      border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+    }
+  }
+}
+
+[acwResizableContainer] {
+  position: relative;
+}
+
+[mat-dialog-title][cdkDragHandle] {
+  cursor: move;
+}
+
+.mat-mdc-unelevated-button,
+.mat-mdc-raised-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+  &.mat-success {
+    background-color: $acw-success !important;
+    color: $acw-light-primary-text !important;
+  }
+
+  &.mat-alert {
+    background-color: $acw-alert !important;
+    color: $acw-light-primary-text !important;
+  }
+}
+
+.mat-mdc-button,
+.mat-mdc-outlined-button,
+.mat-mdc-icon-button {
+  &.mat-success {
+    color: $acw-success !important;
+  }
+  &.mat-alert {
+    color: $acw-alert !important;
+  }
+}
+
+.mat-typography p{
+  margin: 0 0 0;
+}
+
+.mat-mdc-checkbox-checked .mdc-checkbox__background{
+  background: rgb(32, 80, 129) !important;
+  border-color: rgb(32, 80, 129) !important;
+}
+
+.mdc-switch:enabled .mdc-switch__track::after {
+  background: rgb(32, 80, 129) !important;
+  opacity: 0.6;
+}
+
+.mdc-switch--checked .mdc-switch__shadow{
+  background: rgb(32, 80, 129) !important;
+}
+
+.mdc-switch--checked.mdc-switch--disabled .mdc-switch__shadow{
+  background: gray !important;
+}
+
+
+.mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__checkmark {
+  color: white !important;
+}
+

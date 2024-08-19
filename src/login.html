@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="bin/main.css" rel="stylesheet">
+</head>
+<body>
+<div class="container theme-showcase" role="main" style="margin-top: 55px; padding-top: 15px;">
+    <div class="jumbotron">
+        <h1>Fallback login</h1>
+        <p>This is the login form for logging in without SSO. Please use it only when the CERN SSO is not available.</p>
+        <br>
+        <form id="loginForm" name="loginForm" class="form-horizontal" method="post" action="/api/acw/login">
+            <div class="form-group">
+                <label class="col-md-2 control-label">Login:</label>
+                <div class="col-md-8">
+                    <input id="username" name="username" class="form-control" autofocus/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Password:</label>
+                <div class="col-md-8">
+                    <input id="password" name="password" class="form-control" type="password"/>
+                </div>
+            </div>
+            <input id="authentication" name="authentication" type="hidden"/>
+            <div class="form-group text-center">
+                <div class="btn-group" role="group">
+                    <input type="submit" class="btn btn-primary" value="Login without SSO">
+                    <a href="/saml/login" type="button" class="btn btn-default"> Login through SSO </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload = function() {
+        document.getElementById('loginForm').onsubmit = function() {
+            var authentication = document.getElementById('authentication');
+            var username = document.getElementById('username');
+            var password = document.getElementById('password');
+            authentication.value = window.btoa(username.value + ":" + password.value);
+            username.value = "";
+            password.value = "";
+        };
+    };
+</script>
+</body>
+</html>

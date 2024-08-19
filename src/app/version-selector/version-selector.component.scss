@@ -1,0 +1,30 @@
+lt-version-selector {
+    display: block;
+    height: 54px;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.svg-root {
+    width: 100%;
+
+    .axis path {
+        shape-rendering: crispEdges;
+        stroke-width: 4px;
+        stroke: #d3d3d3;
+    }
+
+    text {
+        font-family: sans-serif;
+        font-size: 10px;
+    }
+
+    text.range-label {
+        shape-rendering: crispEdges;
+        fill: white;
+    }
+
+    .version-hover-rect {
+        cursor: pointer;
+    }
+}

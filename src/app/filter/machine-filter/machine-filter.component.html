@@ -1,0 +1,4 @@
+<button class="custom-select" [class.error]="!selectedMachine()" (click)="openDialog()">
+    <span [class.active]="selectedMachine()?.machineCode">Machine</span>
+    <p>{{ selectedMachine()?.machineCode }}</p>
+</button>

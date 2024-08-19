@@ -1,0 +1,83 @@
+<div class="positions-item-container">
+  <div class="positions-title">Positions</div>
+
+  <div class="positions-item">
+    <mat-radio-group [(ngModel)]="selectedFilter" class="positions-radio" aria-label="Functional positions filter">
+      <mat-radio-button color="primary" value="numeric" checked>DCUM Range (Cumulative distance in meters)
+      </mat-radio-button>
+      <mat-radio-button color="primary" value="device" [disabled]="!positions()">Functional position range
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="positions-item">
+    @if (selectedFilter === 'numeric') {
+      <div class="positions-inputs" [formGroup]="dcumForm">
+        <mat-form-field appearance="outline" class="positions-input">
+          <mat-label>DCUM start</mat-label>
+          <input formControlName="start" [placeholder]="'min = ' + MACHINE.defaultStart" [max]="getMaxMachineLength()"
+                 [errorStateMatcher]="matcher" type="number" matInput/>
+          @if (startControl?.hasError('min')) {
+            <mat-error>Input is less than start point (-1)</mat-error>
+          }
+          @if (startControl?.hasError('max')) {
+            <mat-error>Input is more than machine length ({{getMaxMachineLength()}})</mat-error>
+          }
+          @if (startControl?.hasError('required')) {
+            <mat-error>The start value is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="positions-input no-padding">
+          <mat-label>DCUM end</mat-label>
+          <input formControlName="end" [placeholder]="'max = ' + getMaxMachineLength()" [max]="getMaxMachineLength()"
+                 [errorStateMatcher]="matcher" type="number" matInput/>
+          @if (endControl?.hasError('min')) {
+            <mat-error>Input is less than start point (-1)</mat-error>
+          }
+          @if (endControl?.hasError('max')) {
+            <mat-error>Input is more than machine length ({{getMaxMachineLength()}})</mat-error>
+          }
+          @if (startControl?.hasError('required')) {
+            <mat-error>The end value is required</mat-error>
+          }
+        </mat-form-field>
+        @if (dcumForm.errors?.['error']) {
+          <mat-error class="error">Start position is bigger than end position</mat-error>
+        }
+      </div>
+    }
+
+    @if (selectedFilter === 'device') {
+      <div class="positions-inputs" [formGroup]="dcumForm">
+        <lt-position-select class="select" [positions]="positions()" formControlName="start" label="start"/>
+        <lt-position-select class="select" [positions]="positions()" formControlName="end" label="end"/>
+        @if (dcumForm.errors?.['error']) {
+          <mat-error class="error">Start position is bigger than end position</mat-error>
+        }
+      </div>
+    }
+
+    <button
+      [disabled]="!selectedMachine || dcumForm.errors?.['error'] || dcumForm.invalid || dcumForm.pristine"
+      class="btn update"
+      type="button"
+      mat-flat-button
+      color="primary"
+      title="Update shown part of the beamline based on the chosen positions"
+      (click)="updatePosition()"
+    >
+      Update
+    </button>
+    <button
+      [disabled]="!selectedMachine || dcumForm.pristine"
+      class="btn"
+      type="button"
+      mat-flat-button
+      color="primary"
+      title="Reset the beamline to the default state"
+      (click)="resetPosition()"
+    >
+      Reset
+    </button>
+  </div>
+</div>

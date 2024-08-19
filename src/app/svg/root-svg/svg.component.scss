@@ -1,0 +1,44 @@
+line {
+    stroke: black;
+    stroke-width: 0.01;
+    opacity: 0.1;
+}
+
+.line {
+    &-vertical {
+        stroke-width: 0.01;
+        opacity: 0.5;
+        &.red {
+            stroke: red;
+        }
+        &.black {
+            stroke: black;
+        }
+    }
+}
+
+.text {
+    text-anchor: middle;
+    alignment-baseline: hanging;
+    opacity: 0.9;
+    font-size: 0.1px;
+    &.red {
+        font-weight: bold;
+        fill: red;
+    }
+}
+
+.active {
+    opacity: 1;
+}
+
+svg {
+    height: 100%;
+    vertical-align: middle;
+    transform-origin: 0 0;
+}
+
+
+text{
+  letter-spacing: 0;
+}

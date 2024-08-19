@@ -1,0 +1,130 @@
+<svg
+  [attr.viewBox]="
+        (!filter.isCollapsed ? filter.positionRange[0] - SVG_FRAME.svgPaddings : -5) +
+        ' ' +
+        (-SVG_FRAME.maxHeight - VIEW_BOX.paddingTop) +
+        ' ' +
+        (!filter.isCollapsed ? getExtendedLength() : getCollapsedLength()) +
+        ' ' +
+        (SVG_FRAME.maxHeight * 2 + VIEW_BOX.paddingTop + VIEW_BOX.paddingBottom)
+    "
+  id="svg"
+>
+  <linearGradient id="lgrad" x1="30%" y1="50%" x2="100%" y2="50%">
+    <stop offset="0%" style="stop-color: white; stop-opacity: 1"/>
+    <stop offset="50%" style="stop-color: white; stop-opacity: 0.7"/>
+    <stop offset="100%" style="stop-color: white; stop-opacity: 0"/>
+  </linearGradient>
+
+  <linearGradient id="rgrad" x1="70%" y1="50%" x2="0%" y2="50%">
+    <stop offset="0%" style="stop-color: white; stop-opacity: 1"/>
+    <stop offset="50%" style="stop-color: white; stop-opacity: 0.7"/>
+    <stop offset="100%" style="stop-color: white; stop-opacity: 0"/>
+  </linearGradient>
+
+  <line
+    [attr.x1]="!filter.isCollapsed ? filter.positionRange[0] - SVG_FRAME.svgPaddings : -SVG_FRAME.svgPaddings"
+    [attr.x2]="!filter.isCollapsed ? SVG_FRAME.maxWidth + SVG_FRAME.sidePadding : filter.elements.length"
+    [attr.y1]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner"
+    [attr.y2]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner"
+  ></line>
+
+  <line
+    class="line-middle"
+    [attr.x1]="!filter.isCollapsed ? filter.positionRange[0] - SVG_FRAME.svgPaddings : -SVG_FRAME.svgPaddings"
+    [attr.x2]="!filter.isCollapsed ? SVG_FRAME.maxWidth + SVG_FRAME.sidePadding : filter.elements.length"
+    y1="0"
+    y2="0"
+  ></line>
+
+  <line
+    [attr.x1]="!filter.isCollapsed ? filter.positionRange[0] - SVG_FRAME.svgPaddings : -SVG_FRAME.svgPaddings"
+    [attr.x2]="!filter.isCollapsed ? SVG_FRAME.maxWidth + SVG_FRAME.sidePadding : filter.elements.length"
+    [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+    [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+  ></line>
+
+  @if (!filter.isCollapsed) {
+    <line
+      class="active"
+      [attr.x1]="filter.positionRange[0]"
+      [attr.x2]="filter.positionRange[1]"
+      [attr.y1]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner"
+      [attr.y2]="-SVG_FRAME.maxHeight / 2 - VIEW_BOX.paddingInner"
+    ></line>
+  }
+
+  @if (!filter.isCollapsed) {
+    <line
+      class="active"
+      [attr.x1]="filter.positionRange[0]"
+      [attr.x2]="filter.positionRange[1]"
+      [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+      [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+    ></line>
+  }
+
+  @if (!filter.isCollapsed) {
+    <line class="active" [attr.x1]="filter.positionRange[0]" [attr.x2]="filter.positionRange[1]" y1="0" y2="0"></line>
+  }
+
+  <!-- bottom lines -->
+  @if (!filter.isCollapsed) {
+    <g>
+      @for (i of numbersArray; track i) {
+        <g>
+          <line
+            class="line-vertical red"
+            [attr.x1]="i"
+            [attr.x2]="i"
+            [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+            [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + SVG_FRAME.textPadding"
+          ></line>
+          <text class="text red" [attr.x]="i"
+                [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + SVG_FRAME.textPadding">
+            {{ i }}
+          </text>
+          @for (k of [1, 2, 3, 4]; track k) {
+            <g>
+              <line
+                class="line-vertical black"
+                [attr.x1]="i + k"
+                [attr.x2]="i + k"
+                [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+                [attr.y2]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + SVG_FRAME.textPadding"
+              ></line>
+              <text class="text" [attr.x]="i + k"
+                    [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner + SVG_FRAME.textPadding">
+                {{ i + k }}
+              </text>
+            </g>
+          }
+        </g>
+      }
+    </g>
+  }
+
+  @for (element of filter.elements; track element; let i = $index) {
+      <g lt-element [element]="element" [index]="i - 2" [filter]="filter"></g>
+  }
+
+  @if (!filter.isCollapsed) {
+    <rect
+      [attr.width]="SVG_FRAME.linearGradWidth"
+      [attr.height]="(SVG_FRAME.maxHeight + SVG_FRAME.textPadding) * 2"
+      [attr.x]="filter.positionRange[0] - SVG_FRAME.linearGradWidth"
+      [attr.y]="-SVG_FRAME.maxHeight - SVG_FRAME.textPadding"
+      fill="url(#lgrad)"
+    ></rect>
+  }
+
+  @if (!filter.isCollapsed) {
+    <rect
+      [attr.width]="SVG_FRAME.linearGradWidth"
+      [attr.height]="(SVG_FRAME.maxHeight + SVG_FRAME.textPadding) * 2"
+      [attr.x]="filter.positionRange[1]"
+      [attr.y]="-SVG_FRAME.maxHeight - SVG_FRAME.textPadding"
+      fill="url(#rgrad)"
+    ></rect>
+  }
+</svg>

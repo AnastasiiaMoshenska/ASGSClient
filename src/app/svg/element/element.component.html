@@ -1,0 +1,44 @@
+@if (shouldRenderElement(element)) {
+  <svg:g xmlns:svg="http://www.w3.org/2000/svg" class="element">
+    <rect
+      class="rect"
+      [class.transparent]="element.height === 0"
+      [attr.x]="adjMeasurements.upstreamX"
+      [attr.y]="adjMeasurements.midstreamY - adjMeasurements.height / 2"
+      [attr.height]="adjMeasurements.height"
+      [attr.width]="adjMeasurements.width"
+      [attr.fill]="element.bgColor"
+    ></rect>
+
+    @if (filter.namesLevels.includes(element.depthLevel) || filter.isCollapsed) {
+      <a (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)">
+        <text
+          class="text"
+          [attr.fill]="element.height > 0 ? element.txtColor : 'red'"
+          [attr.font-size]="calculateFontSize()"
+          [attr.x]="adjMeasurements.upstreamX + adjMeasurements.width / 2"
+          [attr.y]="calculateYposition()"
+        >
+          {{ element.elementName }}
+        </text>
+      </a>
+    }
+    <rect
+      class="bulletpoint"
+      [attr.x]="adjMeasurements.midstreamX - ELEMENT.bulletSize / 2"
+      [attr.y]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner - ELEMENT.bulletSize / 2"
+      [attr.height]="ELEMENT.bulletSize"
+      [attr.width]="ELEMENT.bulletSize"
+      rx="50"
+    ></rect>
+    <line
+      class="line"
+      [attr.x1]="adjMeasurements.upstreamX + adjMeasurements.width / 2"
+      [attr.x2]="adjMeasurements.upstreamX + adjMeasurements.width / 2"
+      [attr.y1]="SVG_FRAME.maxHeight / 2 + VIEW_BOX.paddingInner"
+      y2="0"
+    ></line>
+    <g lt-tooltip class="tooltip" [element]="element" [adjMeasurements]="adjMeasurements"
+       [isLabelShown]="filter.isLabelShown" [isExpertShown]="filter.isExpertShown"></g>
+  </svg:g>
+}

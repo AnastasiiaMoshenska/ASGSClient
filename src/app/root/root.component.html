@@ -1,0 +1,140 @@
+<mat-progress-bar [mode]="progressBarMode"></mat-progress-bar>
+<div class="synoptics-container">
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        @if (filter()?.selectedMachine; as machine) {
+          <div class="header">
+            <span>
+              Selected date:
+              <span class="text">{{ datePicker | date : 'dd-MM-y' }} </span>
+            </span>
+            <span>{{ machine.description }}</span>
+            <span>
+              Validity:
+              <span class="text">
+                @if (isEndless(machine.validFromDay)) {
+                  <span>Endless</span>
+                } @else {
+                  {{ machine.validFromDay | date : 'dd-MM-y' }}
+                }
+              </span>
+              -
+              <span class="text">
+                @if (isEndless(machine.expiryDay)) {
+                  <span>Endless</span>
+                } @else {
+                  {{ +machine.expiryDay * 1000 | date : 'dd-MM-y' }}
+                }
+              </span>
+            </span>
+          </div>
+        } @else {
+          @if (!isLoading) {
+            <span class="error">Choose the machine, please</span>
+          }
+          @if (isLoading) {
+            <span>Loading...</span>
+          }
+        }
+      </mat-expansion-panel-header>
+      <lt-root-filter id="root-filter" [date]="datePicker" [isCollapsed]="isCollapsed"
+                      (formValuesChanged)="filter.set($event)"
+                      (loadingStateChanged)="setLoadingState($event)"/>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="content-container" [class.disabled]="isLoading || !filter()?.selectedMachine">
+    <div class="btn-container">
+      <div class="btn-toggle">
+        <button type="button" mat-flat-button color="primary"
+                title="Switch between collapsed and extended representation fo the beamline" (click)="toggleView()">
+          {{ filter()?.isCollapsed ? 'Expand' : 'Collapse' }}
+        </button>
+
+        <mat-checkbox (change)="toggleDragging()" checked
+                      title="Enable\disable dragging with a mouse and zooming with a mouse wheel">Zoom/pan with mouse
+        </mat-checkbox>
+      </div>
+      <div class="btn-zooming">
+        <button type="button" mat-flat-button color="primary" title="Navigate to the default zoom and position"
+                (click)="zoomIn()">
+          <mat-icon inline>zoom_in</mat-icon>
+          <span>default zoom / position</span></button>
+      </div>
+    </div>
+    <div class="svg-wrapper" [class.collapsed-wrapper]="isCollapsed">
+      @if (!isLoading && filter()?.elements.length !== 0) {
+        @if (filter(); as ftr) {
+          <div
+            class="svg-container"
+            id="svg-container"
+            lt-svg
+            [attr.data-zoom-on-wheel]="isDraggable ? 'zoom-amount: 0.0025; min-scale: 0.005; max-scale: 100;' : null"
+            [attr.data-pan-on-drag]="isDraggable ? 'button: left;' : null"
+            [filter]="ftr"
+            #svg
+          ></div>
+        }
+      }
+      @if (isLoading) {
+        <img class="svg-placeholder" alt="Loading" src="assets/statuses/loading.svg" height="550" width="550"/>
+      } @else if (!filter()?.selectedMachine && !isLoading) {
+        <img
+          class="svg-placeholder"
+          alt="Choose the machine, please"
+          src="assets/statuses/init.svg"
+          height="550"
+          width="550"
+        />
+      }
+      @if (filter()?.selectedMachine && filter()?.elements.length === 0 && !isLoading) {
+        <img
+          class="svg-placeholder"
+          alt="The machine is empty"
+          src="assets/statuses/empty.svg"
+          height="550"
+          width="550"
+        />
+      }
+    </div>
+
+    <div class="range-container">
+      <p>
+        <span>Selected DCUM range:</span>
+
+          <span>
+              from <span> {{ filter()?.positionRange[0] ?? 0 | ceiling }}</span> to
+              <span>{{
+                  filter()?.positionRange[1] < filter()?.selectedMachine.machineLength
+                    ? (filter()?.positionRange[1] | number : '1.3-3')
+                    : filter()?.selectedMachine.machineLength
+                      ? (filter()?.selectedMachine.machineLength | number : '1.3-3')
+                      : 'not defined'
+                }}</span>
+              (max =
+            {{ filter()?.selectedMachine.machineLength ? (filter()?.selectedMachine.machineLength ?? 0 | ceiling) + 'm' : 'not defined' }}
+            )</span
+          >
+      </p>
+    </div>
+
+<!--    @if (false) {
+      <div class="versions-container">
+        @if (version()) {
+          <lt-version-selector
+            class="item-container"
+            [(version)]="version"
+            [versions]="versions()"
+            restrictToRange
+          />
+        }
+      </div>
+    }-->
+    <div class="date-picker">
+      <input matInput [matDatepicker]="picker" [(ngModel)]="datePicker" (ngModelChange)="onDateChange($event)">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+  </div>
+</div>

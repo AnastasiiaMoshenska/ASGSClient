@@ -1,0 +1,174 @@
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 20px;
+  height: auto;
+}
+
+.detail {
+  color: black;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+  padding: 6px 0;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.badge {
+  display: inline-block;
+  height: auto;
+  max-height: 38px;
+  width: 9px;
+  margin: 0 6px 0 0;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 6px;
+  background-color: rebeccapurple;
+}
+
+.other-badge {
+  display: inline-block;
+  min-width: 10px;
+  width: 70px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background-color: blue;
+
+  &:first-child {
+    margin-bottom: 2px;
+  }
+
+  &.id {
+    background-color: #36618d;
+  }
+
+  &.value {
+    background-color: #8b008b;
+    margin: 0 0 4px 4px;
+  }
+}
+
+.info-container {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  margin-top: 2px;
+  margin-right: 0;
+  padding-right: 5px;
+  line-height: 18px;
+  color: black;
+  box-sizing: border-box;
+
+  .name {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .description {
+    font-size: 12px;
+  }
+
+  .name,
+  .description {
+    word-break: break-word;
+  }
+
+  .user {
+    display: inline-block;
+    margin-top: 6px;
+    color: rgb(51, 122, 183);
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+.badge-container {
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+}
+
+.container {
+  padding: 8px;
+}
+
+.link {
+  color: #337ab7;
+  text-decoration: none;
+
+  :focus,
+  a:hover {
+    color: #23527c;
+    text-decoration: underline;
+  }
+
+  :active,
+  a:hover {
+    outline: 0;
+  }
+}
+
+lt-element-hierarchy {
+  display: block;
+}
+
+.tile-inner-container {
+  padding: 0;
+
+  &.card-styling {
+    display: block;
+    position: relative;
+    border-radius: 4px;
+    background: white;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0px rgb(0 0 0 / 14%), 0 1px 3px 0px rgb(0 0 0 / 12%);
+    margin: 5px;
+  }
+
+  .content {
+    width: calc(100% - 15px);
+    padding: 0;
+  }
+}
+
+::ng-deep {
+  .tile-inner-container {
+    .util {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin-right: 5px;
+      color: #a5a5a5;
+      -webkit-transition: color 0.1s linear;
+      -o-transition: color 0.1s linear;
+      transition: color 0.1s linear;
+      cursor: pointer;
+
+      &:hover {
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+
+    .util,
+    .other-badge {
+      vertical-align: middle;
+    }
+  }
+}
+
+
+.info{
+  display: flex;
+  justify-content: space-between;
+}

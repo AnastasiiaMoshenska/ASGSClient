@@ -1,0 +1,26 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" class="dialog">
+  <div cdkDragHandle class="header">
+    <p>Pick a position</p>
+    <mat-form-field appearance="outline" class="search-container">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search" type="text" [formControl]="searchControl"/>
+    </mat-form-field>
+  </div>
+  <div class="item-container">
+    @for (position of filteredPositions(); track position) {
+      <div
+        class="item"
+        [class.disabled]="position.elementName == data.selectedPosition.elementName"
+        (click)="selectPosition(position)"
+      >
+        <span>{{ position.elementName }}</span>
+      </div>
+    }
+  </div>
+  <div class="footer">
+    <button mat-button (click)="closeDialog()">
+      <mat-icon inline>close</mat-icon>
+      Close
+    </button>
+  </div>
+</div>

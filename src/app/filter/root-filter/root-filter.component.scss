@@ -1,0 +1,199 @@
+p {
+  font-size: 14px;
+}
+
+.filters {
+  &-container {
+    margin-top: 6px;
+  }
+
+  &-item {
+    &:nth-child(1) {
+      width: 28%;
+    }
+
+    &:nth-child(2) {
+      width: 72%;
+    }
+  }
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+
+  div {
+    &:nth-child(1) {
+      margin-right: 20px;
+    }
+  }
+}
+
+.machines {
+  &-container {
+    width: 100%;
+    margin-right: 20px;
+    margin-bottom: 16px;
+    pointer-events: auto !important;
+
+    ::ng-deep.mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+  }
+
+  &-input {
+    width: 100%;
+    cursor: pointer;
+
+    input {
+      cursor: pointer;
+      caret-color: transparent;
+    }
+  }
+}
+
+.classes {
+  width: 100%;
+
+  &-container {
+    width: 100%;
+    position: relative;
+
+    .chip-list {
+      width: 100%;
+    }
+  }
+}
+
+.positions {
+  &-container {
+    display: flex;
+    margin-top: 16px;
+    padding-bottom: 0 !important;
+
+    p {
+      font-weight: 500;
+    }
+
+    lt-position-filter {
+      width: 100%;
+    }
+  }
+
+  &-radio {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    &:nth-child(2) {
+      margin-left: 40px;
+    }
+  }
+}
+
+
+.btn {
+  &-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+    position: relative;
+  }
+
+  &-zooming {
+    button {
+      margin-left: 10px;
+      text-transform: capitalize;
+    }
+  }
+
+  &-toggle {
+    button {
+      min-width: 100px;
+      text-transform: capitalize;
+      margin-right: 20px;
+    }
+  }
+}
+
+.text {
+  font-weight: normal;
+
+  span {
+    font-weight: normal;
+  }
+}
+
+span {
+  font-weight: 500;
+}
+
+.header span {
+  font-size: 16px;
+}
+
+.cell {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  margin-bottom: 12px;
+  border-radius: 5px;
+}
+
+.hide {
+  display: none !important;
+}
+
+.checkbox {
+  &-container {
+    display: flex;
+    margin-top: 6px;
+    min-height: 30px;
+
+    p {
+      min-width: 100px;
+      font-weight: 500;
+      line-height: 2;
+    }
+
+    .ng-star-inserted {
+      margin-right: 16px;
+    }
+
+    div {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.hint {
+  position: absolute;
+  top: 66px;
+  left: 8px;
+  font-size: 14px;
+  color: green;
+  z-index: 1000;
+}
+
+.hidden {
+  display: none;
+}
+
+.content-container {
+  height: 100%;
+}
+
+.disabled {
+  pointer-events: none !important;
+  opacity: 0.5 !important;
+
+  &::ng-deep label {
+    pointer-events: none !important;
+  }
+}

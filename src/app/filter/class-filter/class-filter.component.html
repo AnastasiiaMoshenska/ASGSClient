@@ -1,0 +1,26 @@
+<mat-form-field appearance="outline" class="synoptics-classes">
+  <mat-label>Classes</mat-label>
+  <mat-chip-grid #chipGrid aria-label="Classes selection">
+    @for (classItem of classesActive; track classItem) {
+      <mat-chip-row (removed)="remove(classItem)">
+        {{ classItem }}
+        <button matChipRemove title="remove {{ classItem }}">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    }
+  </mat-chip-grid>
+  <input placeholder="Search" [formControl]="classCtrl" [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"/>
+
+  <mat-checkbox [checked]="classesActive?.size == classes?.length" (change)="showAll()"
+                title="Show / hide all the classes">
+    <span>All classes</span>
+  </mat-checkbox>
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
+    @for (classItem of classesFiltered; track classItem) {
+      <mat-option [value]="classItem">{{ classItem }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>

@@ -1,0 +1,67 @@
+.milestone-day-picker-container {
+  position: relative;
+  min-width: 400px;
+  max-height: 50vh;
+  margin: -24px;
+}
+
+h1{
+  font-size: 14px !important;
+  padding: 0 20px 10px 20px;
+  color: black;
+  margin-bottom: 0;
+  border-bottom: 1px solid lightgrey;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.close-btn {
+  cursor: pointer;
+}
+
+.milestone-day-list {
+  height: 100%;
+  overflow: auto;
+}
+
+.day-tile {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    background-color: aliceblue;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: end;
+  width: calc(100% - 40px);
+  padding: 10px 10px 14px 10px;
+  z-index: 1;
+  text-align: right;
+  button {
+    border: 1px solid lightgrey;
+    font-size: 14px;
+  }
+}
+
+.content{
+  padding: 0;
+}
+
+lt-milestone-day-tile{
+  border-bottom: 1px solid lightgrey;
+}
+
+mat-icon{
+  line-height: 1.5 !important;
+  font-size: 20px !important;
+}

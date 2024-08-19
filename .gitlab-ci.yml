@@ -1,0 +1,30 @@
+stages:
+  - build
+  - test
+
+build:
+  image: node:18
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  timeout: 30 minutes
+
+test:
+  image: node:18
+  stage: test
+  before_script:
+    - apt-get update && apt-get install -y chromium
+    - export CHROME_BIN=/usr/bin/chromium
+    - export CHROME_PATH=/usr/lib/chromium/
+  script:
+    - npm ci
+    - npm test
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - node_modules
+    policy: pull
+  timeout: 30 minutes

@@ -1,0 +1,66 @@
+.tooltip {
+  display: none;
+}
+
+.element {
+  &:hover {
+    .tooltip {
+      display: block;
+    }
+  }
+}
+
+.optic-tooltip {
+  display: none;
+}
+
+.optic-element {
+  &:hover {
+    .optic-tooltip {
+      display: block;
+    }
+  }
+}
+
+
+a {
+  text-decoration: none;
+}
+
+.rect {
+  stroke: black;
+  stroke-width: 0.0025;
+  opacity: 0.6;
+  &.optic{
+    stroke-width: 0.004;
+    opacity: 0.8;
+    stroke-dasharray: 0.07 0.06;
+    fill: lightblue;
+  }
+}
+
+.text {
+  font-weight: bold;
+  text-anchor: middle;
+  alignment-baseline: hanging;
+  cursor: pointer;
+}
+
+.bulletpoint {
+  fill: red;
+}
+
+.line {
+  stroke: black;
+  stroke-width: 0.0025;
+  stroke-dasharray: 0.05;
+  opacity: 0.6;
+}
+
+text {
+  letter-spacing: 0;
+}
+
+.transparent{
+  opacity: 0.2;
+}

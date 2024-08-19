@@ -1,0 +1,40 @@
+.custom-select {
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    padding: 8px 16px;
+    border-radius: 4px;
+    min-width: 30px;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    background: white;
+    height: 36px;
+    cursor: pointer;
+}
+
+p {
+    margin: 0;
+    font-size: 16px;
+    color: black;
+}
+
+span {
+    position: absolute;
+    left: 12px;
+    top: 8px;
+    font-size: 16px;
+    background: white;
+    &.active {
+        font-size: 12px;
+        left: 12px;
+        top: -8px;
+        padding: 0 4px;
+        color: rgba(0, 0, 0, 0.4);
+        font-family: Roboto, sans-serif;
+    }
+}
+
+.error {
+    border: 2px solid red;
+}
