@@ -9,7 +9,6 @@ import { Position } from '../../models/models';
 })
 export class PositionService {
     private positionUrl = 'http://localhost:8080/beamline-schematics/positions';
-    // private positionUrl = 'https://ccda-dev.cern.ch:8906/api/layout/beamline-schematics/positions';
 
 
     constructor(private http: HttpClient) {}

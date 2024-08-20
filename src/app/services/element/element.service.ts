@@ -10,7 +10,6 @@ import { MACHINE } from '../../constants/constants';
 })
 export class ElementService {
     private elementUrl = 'http://localhost:8080/beamline-schematics/elements';
-    // private elementUrl = 'https://ccda-dev.cern.ch:8906/api/layout/beamline-schematics/elements';
 
     constructor(private http: HttpClient) {}
 

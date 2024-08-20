@@ -9,7 +9,6 @@ import { Machine } from '../../models/models';
 })
 export class MachineService {
     private machineUrl = 'http://localhost:8080/beamline-schematics/machines';
-    // private machineUrl = 'https://ccda-dev.cern.ch:8906/api/layout/beamline-schematics/machines';
 
     constructor(private http: HttpClient) {}
 
